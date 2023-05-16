@@ -1,14 +1,14 @@
 from aiogoogle import Aiogoogle
 
 from app.core.config import settings
-from .utils import (SPREADSHEET_BODY,
-                    current_time)
+from .utils import (generate_spreadsheet_body,
+                    generate_table_values)
 
 
 async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
 
     service = await wrapper_services.discover('sheets', 'v4')
-    spreadsheet_body = SPREADSHEET_BODY
+    spreadsheet_body = generate_spreadsheet_body()
     response = await wrapper_services.as_service_account(
         service.spreadsheets.create(json=spreadsheet_body)
     )
@@ -40,7 +40,7 @@ async def spreadsheets_update_value(
 
     service = await wrapper_services.discover('sheets', 'v4')
     table_values = [
-        ['Отчёт от', current_time()],
+        ['Отчёт от', generate_table_values()],
         ['Топ проектов по скорости закрытия'],
         ['Название проекта', 'Время сбора', 'Описание']
     ]
