@@ -1,8 +1,8 @@
 from aiogoogle import Aiogoogle
 
 from app.core.config import settings
-from .constants import (SPREADSHEET_BODY,
-                        NOW_DATE_TIME)
+from .utils import (SPREADSHEET_BODY,
+                    current_time)
 
 
 async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
@@ -40,7 +40,7 @@ async def spreadsheets_update_value(
 
     service = await wrapper_services.discover('sheets', 'v4')
     table_values = [
-        ['Отчёт от', NOW_DATE_TIME],
+        ['Отчёт от', current_time()],
         ['Топ проектов по скорости закрытия'],
         ['Название проекта', 'Время сбора', 'Описание']
     ]
